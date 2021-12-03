@@ -1,7 +1,6 @@
-NOTICE: THIS FORK IS DEPRECATED 
+NOTICE: Use this fork for projects relying on the old diagnostic tarball format that is in sync with the diagnostic tarball in DataStax OpsCenter
 
-There will be no updates to the K8s collection script, the upstream diagnostic-collector has a PR https://github.com/DataStax-Toolkit/diagnostic-collection/pull/55 that is a major rewrite zith K8s support and there is no good reason to continue to enhance this fork. Please push all change requests to https://github.com/thelastpickle/diagnostic-collection/tree/mck/new-version-datastax-collector or if the PR above is finally merged into master then here https://github.com/DataStax-Toolkit/diagnostic-collection
-
+Originally I had archived this as the upstream diagnostic-collector had strongly changed the approach to collection which is great and major progress in testing and capabilities. Unfortunately, the new diagnostic collector has strongly changed the diagnostic tarball format and is therefore not usable for a whole host of diagnostic utilities that relied on the old format. So I have unarchived this repository and will be maintaining this fork until as such time all useful tooling is capable of digesting the new format (this may take years).
 
 --- original readme ---
 

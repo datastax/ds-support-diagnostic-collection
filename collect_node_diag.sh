@@ -180,8 +180,8 @@ function get_node_ip {
         fi
         if [ -z "$NODE_ADDR" ]; then
             NODE_ADDR="$(grep -e '^listen_address: ' "$CONF_DIR/cassandra.yaml" |sed -e 's|^[^:]*:[ ]*\([^ ]*\)[ ]*$|\1|'|tr -d "'")"
-            if [ -z "$NODE_ADDR" ] || [ "$NODE_ADDR" = "127.0.0.1" ] || [ "$NODE_ADDR" = "localhost" ]; then
-                #            echo "Can't detect node's address from cassandra.yaml, or it's set to localhost. Trying to use the 'hostname'"
+            if [ -z "$NODE_ADDR" ] || [ "$NODE_ADDR" = "127.0.0.1" ] || [ "$NODE_ADDR" = "localhost" ] || [ $(checkIP $NODE_ADDR) = "false" ]; then
+                   echo "Can't detect node's address from cassandra.yaml, or it's set to localhost. Trying to use the 'hostname'"
                 if [ "$HOST_OS" = "Linux" ]; then
                     NODE_ADDR="$(hostname -i)"
                 else
@@ -780,7 +780,7 @@ function collect_data {
     fi
 
     # Collect metrics from JMX for OSS C* and DDAC
-    if [ -n "$IS_COSS" ] ; then 
+    if [ -n "$IS_COSS" ] ; then
         if [ "$MODE" != "light" ]; then
             $MAYBE_RUN_WITH_TIMEOUT java -jar ~/sjk-plus.jar mxdump $JMX_OPTS > "$DATA_DIR/jmx_dump.json" 2>&1
         fi
@@ -885,7 +885,7 @@ function collect_insights {
                                 if [ -n "$INS_DIR" ] && [ -d "$INS_DIR" ] && [ -d "$INS_DIR/insights" ]; then
 	                            INSIGHTS_DIR="$INS_DIR/insights "
                                 fi
-                                break	    
+                                break
                             fi
                         fi
                 esac
@@ -914,7 +914,7 @@ function collect_insights {
             fi
         fi
     fi
-    
+
     if [ ! -d "$INSIGHTS_DIR" ]; then
         echo "Can't find find directory with insights data, or it doesn't exist! $INSIGHTS_DIR"
         echo "Please pass directory name via -I option (see help)"
@@ -1057,7 +1057,7 @@ function adjust_nodetool_params {
             echo "JMX isn't available at $jmx_host:$jmx_port"
         fi
     fi
-        
+
     if [ "$jmx_port" != "7199" ]; then
         NT_OPTS="$NT_OPTS -p $jmx_port"
     fi
@@ -1066,6 +1066,16 @@ function adjust_nodetool_params {
     fi
 
     JMX_OPTS="$JMX_OPTS -s $jmx_host:$jmx_port"
+}
+
+function checkIP() {
+
+  if [[ $1 =~ ^[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+    echo "true"
+  else
+    echo "false"
+  fi
+
 }
 
 # Call functions in order

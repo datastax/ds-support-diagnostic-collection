@@ -1,8 +1,3 @@
-NOTICE: Use this fork for projects relying on the old diagnostic tarball format that is in sync with the diagnostic tarball in DataStax OpsCenter
-
-Originally I had archived this as the upstream diagnostic-collector had strongly changed the approach to collection which is great and major progress in testing and capabilities. Unfortunately, the new diagnostic collector has strongly changed the diagnostic tarball format and is therefore not usable for a whole host of diagnostic utilities that relied on the old format. So I have unarchived this repository and will be maintaining this fork until as such time all useful tooling is capable of digesting the new format (this may take years).
-
---- original readme ---
 
 This directory contains a set of scripts to generate a diagnostic tarball for DSE, DDAC &
 open source Cassandra installations, similar (and partially compatible) to diagnostic

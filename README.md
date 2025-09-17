@@ -1,3 +1,5 @@
+> [!WARNING]
+> This repository, while fully functional, is no longer actively enhanced and is superseded by [`diagnostic-collection`](https://github.com/datastax/diagnostic-collection).
 
 This directory contains a set of scripts to generate a diagnostic tarball for DSE, DDAC &
 open source Cassandra installations, similar (and partially compatible) to diagnostic
